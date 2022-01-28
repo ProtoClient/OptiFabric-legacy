@@ -5,13 +5,13 @@ import me.modmuss50.optifabric.patcher.LambadaRebuiler;
 import me.modmuss50.optifabric.patcher.PatchSplitter;
 import me.modmuss50.optifabric.patcher.RemapUtils;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.impl.launch.knot.Knot;
+import net.fabricmc.loader.impl.util.UrlConversionException;
+import net.fabricmc.loader.impl.util.UrlUtil;
+import net.fabricmc.loader.impl.util.mappings.TinyRemapperMappingsHelper;
 import net.fabricmc.loader.launch.common.FabricLauncher;
 import net.fabricmc.loader.launch.common.FabricLauncherBase;
 import net.fabricmc.loader.launch.common.MappingConfiguration;
-import net.fabricmc.loader.launch.knot.Knot;
-import net.fabricmc.loader.util.UrlConversionException;
-import net.fabricmc.loader.util.UrlUtil;
-import net.fabricmc.loader.util.mappings.TinyRemapperMappingsHelper;
 import net.fabricmc.mapping.reader.v2.TinyMetadata;
 import net.fabricmc.mapping.tree.ClassDef;
 import net.fabricmc.mapping.tree.TinyTree;
@@ -26,6 +26,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -215,7 +216,7 @@ public class OptifineSetup {
 		return fabricLauncher.getLoadTimeDependencies().stream().map(url -> {
 			try {
 				return UrlUtil.asPath(url);
-			} catch (UrlConversionException e) {
+			} catch (URISyntaxException e) {
 				throw new RuntimeException(e);
 			}
 		}).filter(Files::exists).collect(Collectors.toList());
@@ -281,7 +282,7 @@ public class OptifineSetup {
 				Path classSourceFile = UrlUtil.asPath(urlSource);
 
 				return Optional.of(classSourceFile);
-			} catch (UrlConversionException e) {
+			} catch (UrlConversionException | URISyntaxException e) {
 				// TODO: Point to a logger
 				e.printStackTrace();
 			}

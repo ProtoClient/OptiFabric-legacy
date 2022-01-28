@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "optifabric",
   "version": "${version}",
-
   "name": "Optifabric",
   "description": "Optifabric is a mod that loads optifine into fabric",
   "authors": [
@@ -11,13 +10,13 @@
     "Hydos"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/hYdos/OptiFabric",
+    "sources": "https://github.com/hYdos/OptiFabric"
   },
   "mixins" :[
     "optifabric.mixins.json"
   ],
-  "license": "CC0-1.0",
+  "license": "MPL-2.0",
   "icon": "assets/optifabric/icon.png",
   "environment": "client",
   "entrypoints": {

@@ -1,20 +1,18 @@
 package me.modmuss50.optifabric.mod;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import me.modmuss50.optifabric.patcher.ASMUtils;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.main.Main;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.zeroturnaround.zip.ZipUtil;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class OptifineVersion {
-
 
 	public static String version;
 	public static String minecraftVersion;
@@ -34,25 +32,25 @@ public class OptifineVersion {
 				if (file.getName().endsWith(".jar")) {
 					JarType type = getJarType(file);
 					if (type.error) {
-						if(!type.name().equals("INCOMPATIBE")){
+						if (!type.name().equals("INCOMPATIBE")) {
 							throw new RuntimeException("An error occurred when trying to find the optifine jar: " + type.name());
-						}else{
+						} else {
 							continue;
 						}
 					}
 					if (type == JarType.OPIFINE_MOD || type == JarType.OPTFINE_INSTALLER) {
-						if(optifineJar != null){
+						if (optifineJar != null) {
 							OptifabricError.setError("Found 2 or more optifine jars, please ensure you only have 1 copy of optifine in the mods folder!");
 							throw new FileNotFoundException("Multiple optifine jars");
 						}
 						jarType = type;
-						optifineJar =  file;
+						optifineJar = file;
 					}
 				}
 			}
 		}
 
-		if(optifineJar != null){
+		if (optifineJar != null) {
 			return optifineJar;
 		}
 
@@ -142,5 +140,4 @@ public class OptifineVersion {
 		}
 
 	}
-
 }
