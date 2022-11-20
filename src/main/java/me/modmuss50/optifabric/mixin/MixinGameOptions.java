@@ -1,7 +1,6 @@
 package me.modmuss50.optifabric.mixin;
 
 import net.minecraft.client.options.GameOptions;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +16,8 @@ public class MixinGameOptions {
 
 	@Shadow public List<String> resourcePacks;
 
-	@Shadow @Final private File optionsFile;
+	@Shadow
+	private File optionsFile;
 
 	@Inject(method = "load", at = @At("RETURN")) //method_2336 = load
 	private void load(CallbackInfo info) {
