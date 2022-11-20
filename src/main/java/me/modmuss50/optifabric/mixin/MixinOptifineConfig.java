@@ -12,19 +12,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(targets = "net.optifine.Config")
 public class MixinOptifineConfig {
 
-	@Shadow
-	private static GameOptions gameSettings;
+    @Shadow
+    private static GameOptions gameSettings;
 
-	@Inject(method = {"isAnimatedTerrain", "isAnimatedTextures", "isSwampColors", "isRandomEntities", "isSmoothBiome",
-			"isCustomColors", "isCustomSky", "isCustomFonts", "isShowCapes", "isConnectedTextures", "isNaturalTextures",
-			"isEmissiveTextures", "isConnectedTexturesFancy", "isFastRender", "isTranslucentBlocksFancy", "isSmoothWorld",
-			"isLazyChunkLoading", "isDynamicFov", "isAlternateBlocks", "isCustomItems", "isDynamicLights", "isDynamicLightsFast",
-			"isCustomEntityModels", "isCustomGuis", "isSmoothFps", "isShowGlErrors"},
-			at = @At("HEAD"), cancellable = true, remap = false)
-	private static void isRandomEntities(CallbackInfoReturnable<Boolean> returnable) {
-		if (gameSettings == null) {
-			returnable.setReturnValue(false);
-		}
-	}
+    @SuppressWarnings("UnresolvedMixinReference")
+    @Inject(method = {"isAnimatedTerrain", "isAnimatedTextures", "isSwampColors", "isRandomEntities", "isSmoothBiome",
+            "isCustomColors", "isCustomSky", "isCustomFonts", "isShowCapes", "isConnectedTextures", "isNaturalTextures",
+            "isEmissiveTextures", "isConnectedTexturesFancy", "isFastRender", "isTranslucentBlocksFancy", "isSmoothWorld",
+            "isLazyChunkLoading", "isDynamicFov", "isAlternateBlocks", "isCustomItems", "isDynamicLights", "isDynamicLightsFast",
+            "isCustomEntityModels", "isCustomGuis", "isSmoothFps", "isShowGlErrors"},
+            at = @At("HEAD"), cancellable = true, remap = false)
+    private static void isRandomEntities(CallbackInfoReturnable<Boolean> returnable) {
+        if (gameSettings == null) {
+            returnable.setReturnValue(false);
+        }
+    }
 
 }
